@@ -12,12 +12,12 @@ spec:
     metadata:
       labels:
         app: csi-operator
+        objectscale.dellemc.com/logging-inject: "true"
+        objectscale.dellemc.com/logging-release-name: "{{ .Release.Name }}"
+        app.kubernetes.io/namespace: "{{ .Release.Namespace }}"
     spec:
       serviceAccount: csi-operator-sa
       terminationGracePeriodSeconds: 10
-      objectscale.dellemc.com/logging-inject: "true"
-      objectscale.dellemc.com/logging-release-name: "{{ .Release.Name }}"
-      app.kubernetes.io/namespace: "{{ .Release.Namespace }}"
       {{- if .Values.csi.deploy }}
       tolerations:
         - key: CriticalAddonsOnly

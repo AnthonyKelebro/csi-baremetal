@@ -155,6 +155,7 @@ spec:
         - name: csi-path
           mountPath: /var/lib/kubelet/plugins/kubernetes.io/csi
           mountPropagation: "Bidirectional"
+        {{- if .Values.env.mountHostRoot }}
         - mountPath: /crash-dump
           name: crash-dump
         - name: host-root
