@@ -12,6 +12,9 @@ spec:
       labels:
         app: csi-baremetal-se
         app.kubernetes.io/name: csi-baremetal
+        objectscale.dellemc.com/logging-inject: "true"
+        objectscale.dellemc.com/logging-release-name: "{{ .Release.Name }}"
+        app.kubernetes.io/namespace: "{{ .Release.Namespace }}"
       annotations:
         prometheus.io/scrape: 'true'
         prometheus.io/port: '{{ .Values.metrics.port }}'
@@ -53,6 +56,9 @@ spec:
                   fieldPath: metadata.namespace
             - name: LOG_FORMAT
               value: text
+          volumeMounts:
+            - mountPath: /crash-dump
+              name: crash-dump
       hostNetwork: true
       tolerations:
         - key: CriticalAddonsOnly
@@ -66,3 +72,6 @@ spec:
               - matchExpressions:
                   - key: node-role.kubernetes.io/master
                     operator: Exists
+      volumes:
+        - name: crash-dump
+          emptyDir: {}

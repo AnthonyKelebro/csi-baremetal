@@ -15,6 +15,9 @@ spec:
     spec:
       serviceAccount: csi-operator-sa
       terminationGracePeriodSeconds: 10
+      objectscale.dellemc.com/logging-inject: "true"
+      objectscale.dellemc.com/logging-release-name: "{{ .Release.Name }}"
+      app.kubernetes.io/namespace: "{{ .Release.Namespace }}"
       {{- if .Values.csi.deploy }}
       tolerations:
         - key: CriticalAddonsOnly
@@ -60,9 +63,13 @@ spec:
           - mountPath: /root/.kube/config
             name: kube-config
             mountPropagation: "HostToContainer"
+          - mountPath: /crash-dump
+            name: crash-dump
       volumes:
         - name: kube-config
           hostPath:
             path: /etc/kubernetes/admin.conf
             type: File
+        - name: crash-dump
+          emptyDir: {}
         {{- end }}

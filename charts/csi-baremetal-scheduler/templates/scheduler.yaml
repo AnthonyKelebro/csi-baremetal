@@ -20,6 +20,9 @@ spec:
         component: scheduler
         tier: control-plane
         version: second
+        objectscale.dellemc.com/logging-inject: "true"
+        objectscale.dellemc.com/logging-release-name: "{{ .Release.Name }}"
+        app.kubernetes.io/namespace: "{{ .Release.Namespace }}"
     spec:
       serviceAccountName: csi-baremetal-scheduler-sa
       containers:
@@ -46,7 +49,11 @@ spec:
               cpu: '0.1'
           securityContext:
             privileged: false
-          volumeMounts: []
+          volumeMounts:
+            - mountPath: /crash-dump
+              name: crash-dump
       hostNetwork: false
       hostPID: false
-      volumes: []
+      volumes:
+        - name: crash-dump
+          emptyDir: {}

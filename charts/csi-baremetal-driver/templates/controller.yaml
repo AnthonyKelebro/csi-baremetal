@@ -16,6 +16,9 @@ spec:
         app.kubernetes.io/name: csi-baremetal
         app: csi-baremetal-controller
         role: csi-do
+        objectscale.dellemc.com/logging-inject: "true"
+        objectscale.dellemc.com/logging-release-name: "{{ .Release.Name }}"
+        app.kubernetes.io/namespace: "{{ .Release.Namespace }}"
       annotations:                        
         prometheus.io/scrape: 'true'
         prometheus.io/port: '{{ .Values.controller.metrics.port }}'
@@ -103,6 +106,8 @@ spec:
           mountPath: /csi
         - name: logs
           mountPath: /var/log
+        - mountPath: /crash-dump
+          name: crash-dump
         ports:
           {{- if .Values.controller.metrics.port }}
           - name: metrics
@@ -191,4 +196,6 @@ spec:
       {{- end }}
       - name: socket-dir
         emptyDir:
+      - name: crash-dump
+        emptyDir: {}
 {{- end }}

@@ -13,6 +13,9 @@ spec:
       labels:
         app: csi-baremetal-node
         app.kubernetes.io/name: csi-baremetal
+        objectscale.dellemc.com/logging-inject: "true"
+        objectscale.dellemc.com/logging-release-name: "{{ .Release.Name }}"
+        app.kubernetes.io/namespace: "{{ .Release.Namespace }}"
       annotations:
         prometheus.io/scrape: 'true'
         prometheus.io/port: '{{ .Values.node.metrics.port }}'
@@ -152,7 +155,8 @@ spec:
         - name: csi-path
           mountPath: /var/lib/kubelet/plugins/kubernetes.io/csi
           mountPropagation: "Bidirectional"
-        {{- if .Values.env.mountHostRoot }}
+        - mountPath: /crash-dump
+          name: crash-dump
         - name: host-root
           mountPath: /hostroot
           mountPropagation: "HostToContainer"
@@ -212,6 +216,8 @@ spec:
         - name: host-home
           mountPath: /host/home
         {{- end }}
+        - mountPath: /crash-dump
+          name: crash-dump
       # Liveness probe sidecar
       - name: liveness-probe
         imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -315,4 +321,6 @@ spec:
         configMap:
           name: csi-baremetal-alerts
       {{- end }}
+      - name: crash-dump
+        emptyDir: {}
 {{- end }}
