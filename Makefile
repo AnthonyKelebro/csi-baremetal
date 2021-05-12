@@ -17,6 +17,8 @@ dependency:
 
 all: build base-images images push
 
+
+
 ### Build binaries
 build: \
 build-drivemgr \
