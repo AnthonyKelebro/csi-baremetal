@@ -14,6 +14,7 @@ version:
 
 dependency:
 	${GO_ENV_VARS} go mod download
+	
 
 all: build base-images images push
 
