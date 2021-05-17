@@ -262,6 +262,9 @@ func (m *VolumeManager) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 			volume.Spec.CSIStatus = apiV1.Removing
 			ll.Debug("Change volume status from Created to Removing")
 		case apiV1.Removing:
+		case apiV1.Failed:
+			ll.Infof("Volume %s is failed. Acting like Removed", volume.Name)
+			fallthrough
 		case apiV1.Removed:
 			// we need to update annotation on related drive CRD
 			// todo can we do polling instead?
