@@ -7,21 +7,19 @@ require (
 	github.com/container-storage-interface/spec v1.2.0
 	github.com/coreos/rkt v1.30.0
 	github.com/fsnotify/fsnotify v1.4.7
-	github.com/golang/protobuf v1.3.5
-	github.com/google/go-cmp v0.4.0 // indirect
+	github.com/golang/protobuf v1.4.3
 	github.com/google/uuid v1.1.1
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/kubernetes-csi/csi-test/v3 v3.1.0
 	github.com/onsi/ginkgo v1.11.0
 	github.com/onsi/gomega v1.7.1
-	github.com/prometheus/client_golang v0.9.2
-	github.com/sirupsen/logrus v1.4.2
+	github.com/prometheus/client_golang v1.11.1
+	github.com/sirupsen/logrus v1.6.0
 	github.com/stretchr/testify v1.4.0
-	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550 // indirect
-	golang.org/x/net v0.0.0-20191209160850-c0dbc17a3553
+	golang.org/x/net v0.0.0-20200625001655-4c5254603344
 	golang.org/x/time v0.0.0-20190308202827-9d24e82272b4 // indirect
 	google.golang.org/grpc v1.27.0
-	gopkg.in/yaml.v2 v2.2.5
+	gopkg.in/yaml.v2 v2.3.0
 	gotest.tools v2.2.0+incompatible
 	k8s.io/api v1.16.4
 	k8s.io/apimachinery v0.16.4
@@ -29,7 +27,6 @@ require (
 	k8s.io/kubernetes v1.16.4
 	k8s.io/utils v0.0.0-20190801114015-581e00157fb1
 	sigs.k8s.io/controller-runtime v0.4.0
-	sigs.k8s.io/yaml v1.1.0
 )
 
 replace (
